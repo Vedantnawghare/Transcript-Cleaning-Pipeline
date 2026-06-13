@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 from app.logger import logger
 from app.cleaner import TranscriptCleaner
 
@@ -17,9 +17,11 @@ cleaner = TranscriptCleaner()
 
 class TranscriptRequest(BaseModel):
 
-    text: str
-
-
+    text: str = Field(
+        ...,
+        min_length=1,
+        description="Transcript text to clean"
+    )
 
 class TranscriptResponse(BaseModel):
 
@@ -42,9 +44,22 @@ def clean_transcript(request: TranscriptRequest):
 
     logger.info("Cleaning request received")
 
+
+    if not request.text.strip():
+
+        logger.error("Empty transcript received")
+
+        raise HTTPException(
+            status_code=400,
+            detail="Transcript cannot be empty"
+        )
+
+
     cleaned_text = cleaner.clean(request.text)
 
+
     logger.info("Cleaning completed successfully")
+
 
     return {
         "original": request.text,
