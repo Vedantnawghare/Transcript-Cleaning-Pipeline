@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from app.logger import logger
 from app.cleaner import TranscriptCleaner
 
 
@@ -38,14 +38,13 @@ def home():
 
 
 @app.post("/clean", response_model=TranscriptResponse)
-def clean_transcript(
-        request: TranscriptRequest
-):
+def clean_transcript(request: TranscriptRequest):
 
-    cleaned_text = cleaner.clean(
-        request.text
-    )
+    logger.info("Cleaning request received")
 
+    cleaned_text = cleaner.clean(request.text)
+
+    logger.info("Cleaning completed successfully")
 
     return {
         "original": request.text,
