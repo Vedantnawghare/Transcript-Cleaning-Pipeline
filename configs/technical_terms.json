@@ -1,0 +1,21 @@
+{
+    "python": "Python",
+    "docker": "Docker",
+    "github": "GitHub",
+    "git": "Git",
+    "kubernetes": "Kubernetes",
+    "javascript": "JavaScript",
+    "typescript": "TypeScript",
+    "mongodb": "MongoDB",
+    "mysql": "MySQL",
+    "postgresql": "PostgreSQL",
+    "linux": "Linux",
+    "windows": "Windows",
+
+    "ai": "AI",
+    "ml": "ML",
+    "nlp": "NLP",
+    "api": "API",
+    "sql": "SQL",
+    "iot": "IoT"
+}
